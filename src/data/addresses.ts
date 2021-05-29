@@ -1,0 +1,17 @@
+export const Addresses = {
+  genesis: '0x0000000000000000000000000000000000000000',
+  core: {
+    index: '0xfDE04Da1560c238EDBC07Df1779A8593C39103Bc',
+    list: '0x7e6DA08c37FabdbFc3DbbEA7E7f987F15aa4F799',
+    account: '0xa3999374b7669F07312F37AEd7E6328bFBE7Dd5c',
+    connector: '0xc9Fc01064Ad33ACaa4534dA4604Fd6602CEF873d',
+    events: '0xCeBA7E1307C1CF68aB6b8aB246E8Df5d5a45cCeB',
+  },
+  connectors: {
+    pancakeswap: "0xc92fABE760078cddBeC795F09FC8F4b3435f1b33",
+    basic : "0x3dbF6E48d4A028F87Fc048A1ddc79B9d3854023d"
+  },
+  read: {
+    core: '0xF9888430eEae0a1472d0A417BeD3cc81aE059311',
+  },
+}

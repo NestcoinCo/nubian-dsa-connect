@@ -1,0 +1,87 @@
+{
+  "name": "dsa-connect",
+  "version": "0.3.3",
+  "description": "DSA connect",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "browser": "dist/index.bundle.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "types": "./dist/index.d.ts",
+  "private": false,
+  "scripts": {
+    "prepublishOnly": "npm ci && ./run-test.sh && npm run build",
+    "dev": "concurrently -c yellow,blue -n RLP,SRV \"npm:build:watch\" \"npm:serve\"",
+    "build": "rollup -c",
+    "build:watch": "rollup -cw",
+    "test": "jest --coverage",
+    "test:watch": "jest --coverage --watch",
+    "serve": "npx light-server --serve . -w \"index.html\" -w \"app.js\" -w \"dist/index.es.js\" -w \"dist/index.bundle.js\"",
+    "trypublish": "npm publish || true",
+    "postversion": "git push && git push --tags && npm publish && npm run open-releases",
+    "open-releases": "open \"$(node -e 'console.log(`${require(\"./package.json\").repository}/releases`)')\"",
+    "ganache:fork": "dotenv -- cross-var npx ganache-cli --fork %ETH_NODE_URL% --unlock %PUBLIC_ADDRESS% --chainId 56 -e 10000000 -m 'west cricket tenant memory offer burger crumble snow solid mushroom wish solid'",
+    "hardhat:fork": "dotenv -- cross-var npx hardhat node --fork %ETH_NODE_URL%",
+    "add:connector": "NODE_PATH=. TS_NODE_PROJECT=scripts/tsconfig.scripts.json dotenv -- cross-var ts-node scripts/addConnector.ts"
+  },
+  "bugs": "https://github.com/Open-Currency-Collective/bxdfi-dsa-connect/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Open-Currency-Collective/bxdfi-dsa-connect/"
+  },
+  "author": {
+    "name": "BXDFI",
+    "email": "info@bxdfi.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ethereum",
+    "defi",
+    "dapps"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
+    "@babel/polyfill": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "@nomiclabs/hardhat-ethers": "^2.0.1",
+    "@nomiclabs/hardhat-web3": "^2.0.0",
+    "@types/inquirer": "^7.3.1",
+    "@types/jest": "^26.0.14",
+    "@types/node-fetch": "^2.5.10",
+    "babel-loader": "^8.1.0",
+    "babel-preset-minify": "^0.5.0",
+    "concurrently": "^5.3.0",
+    "cross-var": "^1.1.0",
+    "dotenv": "^8.2.0",
+    "dotenv-cli": "^3.2.0",
+    "ethers": "^5.0.31",
+    "ganache-cli": "^6.12.0",
+    "hardhat": "^2.0.10",
+    "html-webpack-plugin": "^4.2.0",
+    "inquirer": "^8.0.0",
+    "jest": "^26.5.2",
+    "light-server": "^2.8.0",
+    "node-fetch": "^2.6.1",
+    "prettier": "^2.0.5",
+    "prettier-webpack-plugin": "^1.2.0",
+    "rollup": "^2.28.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.27.3",
+    "ts-jest": "^26.4.1",
+    "ts-node": "^9.1.1",
+    "tslib": "^2.0.1",
+    "typescript": "^4.0.3",
+    "web3": "^1.3.6",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^1.4.0"
+  }
+}
