@@ -1,8 +1,4 @@
-
-
 # DSA Connect [![Build Status](https://travis-ci.com/Open-Currency-Collective/bxdfi-dsa-connect/bxdfi.svg?branch=master)]
-
-<img src="https://raw.githubusercontent.com/Open-Currency-Collective/bxdfi-dsa-connect/master/src/data/img.svg">
 
 The official DSA SDK for JavaScript, available for browsers and Node.js backends.
 
@@ -38,7 +34,7 @@ if (window.ethereum) {
 ```js
 // in nodejs
 const Web3 = require('web3')
-const DSA = require('dsa-connect');
+const DSA = require('dsa-connect')
 const web3 = new Web3(new Web3.providers.HttpProvider(ETH_NODE_URL))
 ```
 
@@ -46,23 +42,23 @@ Now instantiate DSA with web3 instance.
 
 ```js
 // in browser
-const dsa = new DSA(web3);
+const dsa = new DSA(web3)
 
 // in nodejs
 const dsa = new DSA({
   web3: web3,
-  mode: "node",
-  privateKey: PRIVATE_KEY
-});
+  mode: 'node',
+  privateKey: PRIVATE_KEY,
+})
 ```
 
 ## Setting up DSA Accounts
 
 Every user needs to create Smart Account to interact with DeFi Protocols seamlessly; this allows developers to build extensible use-cases with maximum security and composability. You can also create multiple account for a single address.
 
-* Create Smart Account - `build()`
-* Fetch Smart Accounts - `getAccounts()`
-* Set Smart Account - `setInstance()`
+- Create Smart Account - `build()`
+- Fetch Smart Accounts - `getAccounts()`
+- Set Smart Account - `setInstance()`
 
 ### build()
 
@@ -89,12 +85,12 @@ dsa.build({
 > View this [Gist](https://gist.github.com/thrilok209/8b19dbd8d46b2805ab8bb8973611aea2) for estimation of gas price
 
 | **Parameter** | **Type**        | **Description**                                                                                                                                                                |
-|---------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `gasPrice`    | *string/number* | The gas price in gwei. Mostly used in Node implementation to configure the transaction confirmation speed.                                                                     |
-| `origin`      | *address*       | The address to track the origin of transaction. Used for analytics and affiliates.                                                                                             |
-| `authority`   | *address*       | The DSA authority. The address to be added as authority.                                                                                                                       |
-| `from`        | *address*       | The account with which you want to create your DSA. This is helpful to create DSA for other addresses.                                                                         |
-| `nonce`       | *string/number* | Nonce of your sender account. Mostly used in Node implementation to send transaction with a particular nonce either to override unconfirmed transaction or some other purpose. |
+| ------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `gasPrice`    | _string/number_ | The gas price in gwei. Mostly used in Node implementation to configure the transaction confirmation speed.                                                                     |
+| `origin`      | _address_       | The address to track the origin of transaction. Used for analytics and affiliates.                                                                                             |
+| `authority`   | _address_       | The DSA authority. The address to be added as authority.                                                                                                                       |
+| `from`        | _address_       | The account with which you want to create your DSA. This is helpful to create DSA for other addresses.                                                                         |
+| `nonce`       | _string/number_ | Nonce of your sender account. Mostly used in Node implementation to send transaction with a particular nonce either to override unconfirmed transaction or some other purpose. |
 
 The method returns the transaction hash.
 
@@ -112,9 +108,9 @@ await dsa.getAccounts(address)
 dsa.getAccounts(address).then(console.log)
 ```
 
-| **Parameter** | **Type**        | **Description**                                                                                                                                                                |
-|---------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `address`    | *address* | An ethereum address. |
+| **Parameter** | **Type**  | **Description**      |
+| ------------- | --------- | -------------------- |
+| `address`     | _address_ | An ethereum address. |
 
 The method returns an array of objects with all the DSA accounts where `address` is authorised:
 
@@ -134,12 +130,12 @@ The method returns an array of objects with all the DSA accounts where `address`
 Be sure to configure global values by calling `setInstance()`. You can get the id by calling `getAccounts()`. The configured account will be used for all subsequent calls.
 
 ```js
-dsa.setInstance(dsaId); // DSA ID
+dsa.setInstance(dsaId) // DSA ID
 ```
 
-| **Parameter** | **Type**        | **Description**                                                                                                                                                                |
-|---------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `dsaId`    | *Number* | DSA ID to be used for casting. |
+| **Parameter** | **Type** | **Description**                |
+| ------------- | -------- | ------------------------------ |
+| `dsaId`       | _Number_ | DSA ID to be used for casting. |
 
 The method returns an array of objects with all the DSA accounts where `address` is authorised:
 
@@ -157,9 +153,9 @@ let spells = dsa.Spell()
 
 Add **spells** that you want to execute. Think of any actions, and by just adding new SPELLS, you can wonderfully CAST transactions across protocols. Let's try to execute the following actions:
 
-* Deposit 1 ETH to Aave
-* Borrow 100 DAI
-* Deposit borrowed DAI on Compound
+- Deposit 1 ETH to Aave
+- Borrow 100 DAI
+- Deposit borrowed DAI on Compound
 
 ```js
 spells.add({
@@ -183,7 +179,7 @@ At last, cast your spell using `cast()` method.
 
 ```js
 // in async functions
-let transactionHash = await spells.cast();
+let transactionHash = await spells.cast()
 
 // or
 spells.cast().then(console.log) // returns transaction hash
@@ -194,16 +190,16 @@ You can also pass an object to send **optional** parameters like sending ETH alo
 ```js
 spells.cast({
   gasPrice: web3.utils.toWei(gasPrice, 'gwei'), // in gwei, used in node implementation.
-  value: "1000000000000000000", // sending 1 Eth along the transaction.
-  nonce: nonce
+  value: '1000000000000000000', // sending 1 Eth along the transaction.
+  nonce: nonce,
 })
 ```
 
 | **Parameter (optional)** | **Type**        | **Description**                                                                                                                                                                |
-|--------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|                                                                                                       
-| `gasPrice`               | *string/number* | The gas price in gwei. Mostly used in Node implementation to configure the transaction confirmation speed.                                                                     |
-| `value`                  | *string/number* | Amount of ETH which you want to send along with the transaction (in wei).                                                                                                      |
-| `nonce`                  | *string/number* | Nonce of your sender account. Mostly used in Node implementation to send transaction with a particular nonce either to override unconfirmed transaction or some other purpose. |
+| ------------------------ | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `gasPrice`               | _string/number_ | The gas price in gwei. Mostly used in Node implementation to configure the transaction confirmation speed.                                                                     |
+| `value`                  | _string/number_ | Amount of ETH which you want to send along with the transaction (in wei).                                                                                                      |
+| `nonce`                  | _string/number_ | Nonce of your sender account. Mostly used in Node implementation to send transaction with a particular nonce either to override unconfirmed transaction or some other purpose. |
 
 This will send the transaction to blockchain in node implementation (or ask users to confirm the transaction on web3 wallet like Metamask).
 
