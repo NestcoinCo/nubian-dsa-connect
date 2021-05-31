@@ -13,7 +13,7 @@ let dsa: DSA
 let account: string
 let gasPrice: string = '500000000000'
 
-const provider = new HDWalletProvider(`${process.env.PRIVATE_KEY}`, `https://data-seed-prebsc-1-s1.binance.org:8545/`)
+const provider = new HDWalletProvider(`${process.env.PRIVATE_KEY}`, `https://bsc-dataseed2.binance.org/`)
 
 const accountPrivateKey: any = process.env.PRIVATE_KEY
 
@@ -21,8 +21,8 @@ console.log(accountPrivateKey, 'lol')
 
 const bnbAddr = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
 const usdcAddr = '0x16227D60f7a0e586C66B005219dfc887D13C9531'
-const daiAddr = '0xec5dcb5dbf4b114c9d0f65bccab49ec54f6a0867'
-const busdAddr = ''
+const daiAddr = '0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3'
+const busdAddr = '0xe9e7cea3dedca5984780bafc599bd69add087d56'
 
 beforeAll(() => {
   web3 = new Web3(provider)
@@ -56,14 +56,6 @@ describe('DSA v2', function () {
 
     console.log(accountCount, 'number of dsa created')
 
-    const balance = await web3.eth.getBalance(dsaAccounts[9].address)
-
-    let balanceToDecimal = web3.utils.fromWei(balance, 'ether')
-
-    console.log(`${balanceToDecimal}BNB , 'balance of dsa'`)
-
-    console.log(balance, 'balance of the last account')
-
     console.log(dsaAccounts, 'amount of dsa accounts')
 
     await dsa.build({ version: 2, gasPrice })
@@ -78,30 +70,30 @@ describe('DSA v2', function () {
     expect(dsa.instance.version).toEqual(2)
   })
 
-  test('Deposit 5 bnb to DSA', async () => {
-    const amt = web3.utils.toWei('2', 'ether')
+  // test('Deposit 0.02 bnb to DSA', async () => {
+  //   const amt = web3.utils.toWei('0.02', 'ether')
 
-    console.log(dsa.instance.address, 'dsa instance')
-    const data = {
-      token: bnbAddr,
-      amount: amt,
-      to: dsa.instance.address,
-      from: account,
-      gasPrice,
-    }
-    await dsa.erc20.transfer(data)
+  //   console.log(dsa.instance.address, 'dsa instance')
+  //   const data = {
+  //     token: bnbAddr,
+  //     amount: amt,
+  //     to: dsa.instance.address,
+  //     from: account,
+  //     gasPrice,
+  //   }
+  //   await dsa.erc20.transfer(data)
 
-    const balance = await web3.eth.getBalance(dsa.instance.address)
+  //   const balance = await web3.eth.getBalance(dsa.instance.address)
 
-    console.log(dsa.instance.address)
+  //   console.log(dsa.instance.address)
 
-    console.log(balance, 'balance of dsa')
-    // expect(balance).toEqual(amt.toString())
-  })
+  //   console.log(balance, 'balance of dsa')
+  //   // expect(balance).toEqual(amt.toString())
+  // })
 
   // test('Swap 2 busd to dai', async () => {
   //   const spells = dsa.Spell()
-  //   const amt = web3.utils.toWei('1', 'ether')
+  //   const amt = web3.utils.toWei('2', 'ether')
   //   spells.add({
   //     connector: 'PANCAKESWAP-A',
   //     method: 'sell',

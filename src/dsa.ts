@@ -91,7 +91,7 @@ export class DSA {
     id: 0,
     address: Addresses.genesis,
     version: 2,
-    chainId: 97,
+    chainId: 56,
   }
 
   // value of uint(-1).
@@ -120,7 +120,7 @@ export class DSA {
   /**
    * @param config A `web3` instance or a DSAConfig
    */
-  constructor(config: Web3 | DSAConfig, chainId: ChainId = 97) {
+  constructor(config: Web3 | DSAConfig, chainId: ChainId = 56) {
     this.instance.chainId = chainId
     this.config = getDSAConfig(config)
     this.config.web3.eth.getChainId().then((_chainId) => {
