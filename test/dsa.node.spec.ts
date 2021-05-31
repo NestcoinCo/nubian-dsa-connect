@@ -11,7 +11,7 @@ config()
 let web3: Web3
 let dsa: DSA
 let account: string
-let gasPrice: string = '500000000000'
+let gasPrice: string = '20000000000'
 
 const provider = new HDWalletProvider(`${process.env.PRIVATE_KEY}`, `https://bsc-dataseed2.binance.org/`)
 
@@ -68,44 +68,46 @@ describe('DSA v2', function () {
     await dsa.setAccount(createdDSA.id)
     expect(dsa.instance.id).toEqual(createdDSA.id)
     expect(dsa.instance.version).toEqual(2)
-  })
+  }, 100000)
 
-  // test('Deposit 0.02 bnb to DSA', async () => {
-  //   const amt = web3.utils.toWei('0.02', 'ether')
+  test('Deposit 0.005 bnb to DSA', async () => {
+    const amt = web3.utils.toWei('0.005', 'ether')
 
-  //   console.log(dsa.instance.address, 'dsa instance')
-  //   const data = {
-  //     token: bnbAddr,
-  //     amount: amt,
-  //     to: dsa.instance.address,
-  //     from: account,
-  //     gasPrice,
-  //   }
-  //   await dsa.erc20.transfer(data)
+    console.log(dsa.instance.address, 'dsa instance')
+    const data = {
+      token: bnbAddr,
+      amount: amt,
+      to: dsa.instance.address,
+      from: account,
+      gasPrice,
+    }
+    await dsa.erc20.transfer(data)
 
-  //   const balance = await web3.eth.getBalance(dsa.instance.address)
+    const balance = await web3.eth.getBalance('0x7E5cC8AfdcBe11802a4eD20c1ED1F6d8e43D919d')
 
-  //   console.log(dsa.instance.address)
+    console.log(balance, 'lamba')
 
-  //   console.log(balance, 'balance of dsa')
-  //   // expect(balance).toEqual(amt.toString())
-  // })
+    console.log(balance, 'balance of dsa')
+    // expect(balance).toEqual(amt.toString())
+  }, 100000)
 
-  // test('Swap 2 busd to dai', async () => {
-  //   const spells = dsa.Spell()
-  //   const amt = web3.utils.toWei('2', 'ether')
-  //   spells.add({
-  //     connector: 'PANCAKESWAP-A',
-  //     method: 'sell',
-  //     args: [daiAddr, busdAddr, amt, 0, 0, 0],
-  //   })
+  test('Swap 2 busd to dai', async () => {
+    const spells = dsa.Spell()
+    const amt = web3.utils.toWei('9', 'ether');
+    
+    console.log(amt, "amount")
+    spells.add({
+      connector: 'PANCAKESWAP-A',
+      method: 'sell',
+      args: [daiAddr, busdAddr, amt, 0, dsa.instance.id, dsa.instance.id],
+    })
 
-  //   const gas = await spells.estimateCastGas({ from: account })
-  //   expect(gas).toBeDefined()
+    const gas = await spells.estimateCastGas({ from: account })
+    expect(gas).toBeDefined()
 
-  //   const txHash = await spells.cast({ from: account, gasPrice })
-  //   expect(txHash).toBeDefined()
-  // })
+    const txHash = await spells.cast({ from: account, gasPrice })
+    expect(txHash).toBeDefined()
+  }, 100000)
 
   // test('Give USDC allowance and deposit to smart account', async () => {
   //   var data = {
