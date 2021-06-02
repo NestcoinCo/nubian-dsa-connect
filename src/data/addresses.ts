@@ -8,11 +8,10 @@ export const Addresses = {
     events: '0x1fd75144E5b34Ba446d46b4F1eef6a98bd4628F5',
   },
   connectors: {
-    pancakeswap: "0x90981Ff5D5a18Fe25C22F45199B661DfFBc5D2Cf",
-    basic : "0x1311888AC68F1A509e7B7025b0642ac0A8Ce2211"
+    pancakeswap: '0x90981Ff5D5a18Fe25C22F45199B661DfFBc5D2Cf',
+    basic: '0xC2e1c0fc0A2c0126AD5222D6eB2453c6aEc1e637',
   },
   read: {
     core: '0xab50189dc5dC39952F3b927825371f8d73E3Fa5e',
   },
 }
-

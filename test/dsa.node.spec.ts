@@ -13,14 +13,13 @@ let dsa: DSA
 let account: string
 let gasPrice: string = '20000000000'
 
-const provider = new HDWalletProvider(`${process.env.PRIVATE_KEY}`, `https://bsc-dataseed2.binance.org/`)
+const provider = new HDWalletProvider(`${process.env.PRIVATE_KEY}`, `https://bsc-dataseed.binance.org/`)
 
 const accountPrivateKey: any = process.env.PRIVATE_KEY
 
 console.log(accountPrivateKey, 'lol')
 
 const bnbAddr = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
-const usdcAddr = '0x16227D60f7a0e586C66B005219dfc887D13C9531'
 const daiAddr = '0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3'
 const busdAddr = '0xe9e7cea3dedca5984780bafc599bd69add087d56'
 
@@ -70,8 +69,8 @@ describe('DSA v2', function () {
     expect(dsa.instance.version).toEqual(2)
   }, 100000)
 
-  test('Deposit 0.005 bnb to DSA', async () => {
-    const amt = web3.utils.toWei('0.005', 'ether')
+  test('Deposit 0.01 bnb to DSA', async () => {
+    const amt = web3.utils.toWei('0.01', 'ether')
 
     console.log(dsa.instance.address, 'dsa instance')
     const data = {
@@ -83,7 +82,7 @@ describe('DSA v2', function () {
     }
     await dsa.erc20.transfer(data)
 
-    const balance = await web3.eth.getBalance('0x7E5cC8AfdcBe11802a4eD20c1ED1F6d8e43D919d')
+    const balance = await web3.eth.getBalance(dsa.instance.address)
 
     console.log(balance, 'lamba')
 
@@ -91,21 +90,52 @@ describe('DSA v2', function () {
     // expect(balance).toEqual(amt.toString())
   }, 100000)
 
-  test('Swap 2 busd to dai', async () => {
+  test('deposit 10 busd to dsa and Swap 10 busd to dai and withdraw dai', async () => {
     const spells = dsa.Spell()
-    const amt = web3.utils.toWei('9', 'ether');
-    
-    console.log(amt, "amount")
+    const amt = web3.utils.toWei('2', 'ether')
+
+    var data = {
+      token: busdAddr,
+      amount: amt,
+      to: dsa.instance.address,
+      gasPrice,
+    }
+    await dsa.erc20.approve(data)
+    console.log('approve busd for dsa')
+
     spells.add({
-      connector: 'PANCAKESWAP-A',
-      method: 'sell',
-      args: [daiAddr, busdAddr, amt, 0, dsa.instance.id, dsa.instance.id],
+      connector: 'BASIC-A',
+      method: 'deposit',
+      args: [busdAddr, dsa.maxValue, dsa.instance.id, dsa.instance.id],
     })
+
+    // console.log('deposit added')
+    // spells.add({
+    //   connector: 'PANCAKESWAP-A',
+    //   method: 'sell',
+    //   args: [daiAddr, bnbAddr, amt, 0, dsa.instance.id, dsa.instance.id],
+    // })
+    // console.log('swap bnb for dai')
+
+    // const withdrawAmt = web3.utils.toWei('9', 'ether')
+
+    // spells.add({
+    //   connector: 'BASIC-A',
+    //   method: 'withdraw',
+    //   args: [busdAddr, withdrawAmt, account, 0, 0],
+    // })
 
     const gas = await spells.estimateCastGas({ from: account })
     expect(gas).toBeDefined()
 
-    const txHash = await spells.cast({ from: account, gasPrice })
+    let nonce = await web3.eth.getTransactionCount(account)
+
+    const calldata = await dsa.encodeCastABI(spells)
+    expect(calldata).toBeDefined()
+
+    const txHash = await dsa.cast({ spells: spells, from: account })
+
+    //const txHash = await spells.cast({ from: account, gasPrice, nonce: nonce })
     expect(txHash).toBeDefined()
   }, 100000)
 
