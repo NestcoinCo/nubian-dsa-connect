@@ -13,6 +13,7 @@ let dsa: DSA
 let account: string
 let gasPrice: string = '20000000000'
 
+//change url to localhost when using the fork of the mainnet
 const provider = new HDWalletProvider(`${process.env.PRIVATE_KEY}`, `https://bsc-dataseed.binance.org/`)
 
 const accountPrivateKey: any = process.env.PRIVATE_KEY
