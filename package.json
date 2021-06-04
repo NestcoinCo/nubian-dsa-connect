@@ -1,7 +1,7 @@
 {
-  "name": "dsa-connect",
-  "version": "0.3.3",
-  "description": "DSA connect",
+  "name": "bxdfi-dsa-connect",
+  "version": "0.0.1",
+  "description": "BXDFI DSA connect",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "browser": "dist/index.bundle.js",
@@ -12,7 +12,7 @@
   "types": "./dist/index.d.ts",
   "private": false,
   "scripts": {
-    "prepublishOnly": "npm ci && ./run-test.sh && npm run build",
+    "prepublishOnly": "npm ci && npm run build",
     "dev": "concurrently -c yellow,blue -n RLP,SRV \"npm:build:watch\" \"npm:serve\"",
     "build": "rollup -c",
     "build:watch": "rollup -cw",
