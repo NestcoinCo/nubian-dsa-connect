@@ -7,13 +7,13 @@ The official DSA SDK for JavaScript, available for browsers and Node.js backends
 To get started, install the DSA Connect package from npm:
 
 ```bash
-npm install dsa-connect
+npm install bxdfi-dsa-connect
 ```
 
 For browsers, via jsDelivr CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/dsa-connect@latest/dist/index.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bxdfi-dsa-connect@latest/dist/index.bundle.min.js"></script>
 ```
 
 ### Usage
@@ -34,7 +34,7 @@ if (window.ethereum) {
 ```js
 // in nodejs
 const Web3 = require('web3')
-const DSA = require('dsa-connect')
+const DSA = require('bxdfi-dsa-connect')
 const web3 = new Web3(new Web3.providers.HttpProvider(ETH_NODE_URL))
 ```
 
