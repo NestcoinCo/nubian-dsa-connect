@@ -1,4 +1,4 @@
-# DSA Connect [![Build Status](https://travis-ci.com/Open-Currency-Collective/bxdfi-dsa-connect/bxdfi.svg?branch=master)]
+# DSA Connect [![Build Status](https://bafybeiabxg7ltbyvtxvqm6c2avg2akpyxq4kakytll247jhvcgjd5i4sum.ipfs.dweb.link/)]
 
 The official DSA SDK for JavaScript, available for browsers and Node.js backends.
 
