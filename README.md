@@ -1,4 +1,4 @@
-# DSA Connect [![Build Status](https://bafybeiabxg7ltbyvtxvqm6c2avg2akpyxq4kakytll247jhvcgjd5i4sum.ipfs.dweb.link/)]
+# BXDFI DSA Connect (https://bafybeifrgm76bnmlm6xyscgmgxrjkjfh5okho4yknxohoy3jatknetkggi.ipfs.dweb.link/)
 
 The official DSA SDK for JavaScript, available for browsers and Node.js backends.
 
