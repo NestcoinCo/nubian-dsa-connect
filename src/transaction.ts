@@ -25,9 +25,9 @@ export class Transaction {
           throw new Error('Error while signing transaction. Please contact our support: https://docs.bxdfi.com/')
         this.dsa.web3.eth
           .sendSignedTransaction(signedTransaction.rawTransaction)
-          .on('transactionHash', (txHash) => {
-            resolve(txHash)
-            return txHash
+          .on('receipt', (txReciept) => {
+            //resolve(txReciept)
+            return txReciept
           })
           .on('error', (error) => {
             reject(error)
@@ -36,9 +36,9 @@ export class Transaction {
       } else {
         this.dsa.web3.eth
           .sendTransaction(transactionConfig)
-          .on('transactionHash', (txHash) => {
-            resolve(txHash)
-            return txHash
+          .on('receipt', (txReciept) => {
+            //resolve(txReciept)
+            return txReciept
           })
           .on('error', (error) => {
             reject(error)
