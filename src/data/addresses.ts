@@ -8,7 +8,7 @@ export const Addresses = {
     events: '0x1fd75144E5b34Ba446d46b4F1eef6a98bd4628F5',
   },
   connectors: {
-    pancakeswap: '0x90981Ff5D5a18Fe25C22F45199B661DfFBc5D2Cf',
+    pancakeswap: '0x137701708f7139B563E77D71E8158364Ff1A934C',
     basic: '0xC2e1c0fc0A2c0126AD5222D6eB2453c6aEc1e637',
   },
   read: {

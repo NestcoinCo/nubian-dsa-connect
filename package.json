@@ -1,6 +1,6 @@
 {
   "name": "bxdfi-dsa-connect",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "BXDFI DSA connect",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
