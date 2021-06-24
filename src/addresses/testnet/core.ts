@@ -1,14 +1,14 @@
 export const core = {
-  index: '0xfDE04Da1560c238EDBC07Df1779A8593C39103Bc', // bxdIndex
-  list: '0x7e6DA08c37FabdbFc3DbbEA7E7f987F15aa4F799', //  bxdList
-  read: '0xF9888430eEae0a1472d0A417BeD3cc81aE059311', //  bxdResolver
+  index: '0xC558A66098EFB3314E681F74f5bB08c396257D18', // bxdIndex
+  list: '0x58f4D59E4D4A97758d56487Dbbe5e083Af89cf9D', //  bxdList
+  read: '0xab50189dc5dC39952F3b927825371f8d73E3Fa5e', //  bxdResolver
   versions: {
     2: {
-      accountProxy: '0xa3999374b7669F07312F37AEd7E6328bFBE7Dd5c', //  bxdAccountV2
-      accountDefault: '0xfc6763640f71aF44f08aF7d10714eA69FF4Db2B4', //bxdDefaultImplementation
-      implementations: '0x84FA54D77aC71E5fcAfE01B28044C4C327Fc64a4', //bxdImplementations
-      account: '0x600f5FF527832c7dc768b4327E163d23804eCc27', // bxdImplementationM1
-      connectors: '0xc9Fc01064Ad33ACaa4534dA4604Fd6602CEF873d', // BXDConnector v2 (default)
+      accountProxy: '0x2FB5B6b3632146EEAD26446046C8A45c36485436', //  bxdAccountV2
+      accountDefault: '0x132c190D30bCaE57e15171aC0cA71e430D391874', //bxdDefaultImplementation
+      implementations: '0x5DDa94995d64fB239F7dE2971E90a36524605b52', //bxdImplementations
+      account: '0xd29aFdfBCad1C249b0c69Eb2785b08353029282B', // bxdImplementationM1
+      connectors: '0x21cf3ea572473f22597DE28c80cA6BFF94416151', // BXDConnector v2 (default)
     },
   },
 }

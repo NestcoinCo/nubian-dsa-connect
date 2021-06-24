@@ -120,7 +120,7 @@ export class Internal {
    */
   encodeSpells = (params: Spells | { spells: Spells }, version: Version = this.dsa.instance.version) => {
     let spells = this.dsa.castHelpers.flashBorrowSpellsConvert(this.getSpells(params))
-
+    console.log("Spells: ", spells)
     // Convert the spell.connector into required version. Eg: compound => COMPOUND-A for DSAv2
     spells.data = spells.data.map(spell => Number(version) === 1 ?
       {...spell, connector: spell.connector} :
