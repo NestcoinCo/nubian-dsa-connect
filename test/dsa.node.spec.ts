@@ -68,10 +68,10 @@ describe('DSA v2', function () {
     await dsa.setAccount(createdDSA.id)
     expect(dsa.instance.id).toEqual(createdDSA.id)
     expect(dsa.instance.version).toEqual(2)
-  }, 100000)
+  }, 10000000)
 
   test('Deposit 0.01 bnb to DSA', async () => {
-    const amt = web3.utils.toWei('0.01', 'ether')
+    const amt = web3.utils.toWei('0.001', 'ether')
 
     console.log(dsa.instance.address, 'dsa instance')
     const data = {
@@ -89,42 +89,52 @@ describe('DSA v2', function () {
 
     console.log(balance, 'balance of dsa')
     // expect(balance).toEqual(amt.toString())
-  }, 100000)
+  }, 1000000)
 
-  test('deposit 10 busd to dsa and Swap 10 busd to dai and withdraw dai', async () => {
+  test('lend 1 busd with dsa, borrow 0.1 busd, withdraw money lended and payback borrow', async () => {
     const spells = dsa.Spell()
-    const amt = web3.utils.toWei('2', 'ether')
+    const lendAmt = web3.utils.toWei('1.3', 'ether')
+    const borrowAmt = web3.utils.toWei('0.3', 'ether')
+    const withdrawAmt = web3.utils.toWei('0.8', 'ether')
 
     var data = {
       token: busdAddr,
-      amount: amt,
+      amount: lendAmt,
       to: dsa.instance.address,
+      from: account,
       gasPrice,
     }
     await dsa.erc20.approve(data)
     console.log('approve busd for dsa')
 
+    await dsa.erc20.transfer(data)
+    console.log('deposit busd for dsa')
+
     spells.add({
-      connector: 'BASIC-A',
+      connector: 'VENUS-A',
       method: 'deposit',
-      args: [busdAddr, dsa.maxValue, dsa.instance.id, dsa.instance.id],
+      args: ['BUSD-A', lendAmt, dsa.instance.id, dsa.instance.id],
+    })
+    console.log('deposit money into venus')
+    spells.add({
+      connector: 'VENUS-A',
+      method: 'borrow',
+      args: ['BUSD-A', borrowAmt, dsa.instance.id, dsa.instance.id],
+    })
+    console.log('borrow money from venus')
+    spells.add({
+      connector: 'VENUS-A',
+      method: 'withdraw',
+      args: ['BUSD-A', withdrawAmt, dsa.instance.id, dsa.instance.id],
+    })
+    console.log('withdraw money from venus')
+    spells.add({
+      connector: 'VENUS-A',
+      method: 'payback',
+      args: ['BUSD-A', borrowAmt, dsa.instance.id, dsa.instance.id],
     })
 
-    // console.log('deposit added')
-    // spells.add({
-    //   connector: 'PANCAKESWAP-A',
-    //   method: 'sell',
-    //   args: [daiAddr, bnbAddr, amt, 0, dsa.instance.id, dsa.instance.id],
-    // })
-    // console.log('swap bnb for dai')
-
-    // const withdrawAmt = web3.utils.toWei('9', 'ether')
-
-    // spells.add({
-    //   connector: 'BASIC-A',
-    //   method: 'withdraw',
-    //   args: [busdAddr, withdrawAmt, account, 0, 0],
-    // })
+    console.log('payback money to venus')
 
     const gas = await spells.estimateCastGas({ from: account })
     expect(gas).toBeDefined()
@@ -135,7 +145,7 @@ describe('DSA v2', function () {
     expect(calldata).toBeDefined()
 
     const txHash = await dsa.cast({ spells: spells, from: account })
-
+    console.log(txHash, 'transaction hash')
     //const txHash = await spells.cast({ from: account, gasPrice, nonce: nonce })
     expect(txHash).toBeDefined()
   }, 100000)
