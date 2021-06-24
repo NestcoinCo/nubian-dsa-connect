@@ -1,6 +1,6 @@
 import { AbiItem } from 'web3-utils'
 
-export const VENUS_A: AbiItem[] = [
+export const VenusV2: AbiItem[] = [
   {
     inputs: [
       {

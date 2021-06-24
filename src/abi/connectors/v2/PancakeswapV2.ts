@@ -1,6 +1,6 @@
 import { AbiItem } from 'web3-utils'
 
-export const ConnectV2PancakeswapV2: AbiItem[] = [
+export const PancakeswapV2: AbiItem[] = [
   {
     anonymous: false,
     inputs: [

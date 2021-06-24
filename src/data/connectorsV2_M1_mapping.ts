@@ -2,6 +2,6 @@ export default {
    
     "authority" :"AUTHORITY-A",
     "basic" :"BASIC-A",
-    "pancakeswap" :"ConnectV2PancakeswapV2",
-   
+    "pancakeswap" :"PancakeswapV2",
+    "venus" : "VenusV2"
 }
