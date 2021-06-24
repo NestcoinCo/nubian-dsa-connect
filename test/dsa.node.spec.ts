@@ -111,25 +111,25 @@ describe('DSA v2', function () {
     console.log('deposit busd for dsa')
 
     spells.add({
-      connector: 'VENUS-A',
+      connector: 'VenusV2',
       method: 'deposit',
       args: ['BUSD-A', lendAmt, dsa.instance.id, dsa.instance.id],
     })
     console.log('deposit money into venus')
     spells.add({
-      connector: 'VENUS-A',
+      connector: 'VenusV2',
       method: 'borrow',
       args: ['BUSD-A', borrowAmt, dsa.instance.id, dsa.instance.id],
     })
     console.log('borrow money from venus')
     spells.add({
-      connector: 'VENUS-A',
+      connector: 'VenusV2',
       method: 'withdraw',
       args: ['BUSD-A', withdrawAmt, dsa.instance.id, dsa.instance.id],
     })
     console.log('withdraw money from venus')
     spells.add({
-      connector: 'VENUS-A',
+      connector: 'VenusV2',
       method: 'payback',
       args: ['BUSD-A', borrowAmt, dsa.instance.id, dsa.instance.id],
     })
