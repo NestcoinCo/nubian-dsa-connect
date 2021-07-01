@@ -1,7 +1,7 @@
 export const core = {
   index: '0xC558A66098EFB3314E681F74f5bB08c396257D18', // bxdIndex
   list: '0x58f4D59E4D4A97758d56487Dbbe5e083Af89cf9D', //  bxdList
-  read: '0xab50189dc5dC39952F3b927825371f8d73E3Fa5e', //  bxdResolver
+  read: '0x009510c9c5dE618f9992062205a79746b6E1Af80', //  bxdResolver
   versions: {
     2: {
       accountProxy: '0x2FB5B6b3632146EEAD26446046C8A45c36485436', //  bxdAccountV2

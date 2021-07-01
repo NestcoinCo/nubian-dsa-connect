@@ -13,6 +13,6 @@ export const Addresses = {
     venus: "0x4fFcfd0f62352E33BB02710fD4c7D2049644B13D"
   },
   read: {
-    core: '0xab50189dc5dC39952F3b927825371f8d73E3Fa5e',
+    core: '0x009510c9c5dE618f9992062205a79746b6E1Af80',
   },
 }
