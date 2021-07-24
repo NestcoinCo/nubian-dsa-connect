@@ -1,7 +1,7 @@
 {
-  "name": "bxdfi-dsa-connect",
-  "version": "0.1.9",
-  "description": "BXDFI DSA connect",
+  "name": "nubian-dsa-connect",
+  "version": "0.2.0",
+  "description": "Nubian DSA connect",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "browser": "dist/index.bundle.js",
@@ -26,14 +26,14 @@
     "hardhat:fork": "dotenv -- cross-var npx hardhat node --fork %ETH_NODE_URL%",
     "add:connector": "NODE_PATH=. TS_NODE_PROJECT=scripts/tsconfig.scripts.json dotenv -- cross-var ts-node scripts/addConnector.ts"
   },
-  "bugs": "https://github.com/Open-Currency-Collective/bxdfi-dsa-connect/issues",
+  "bugs": "https://github.com/Open-Currency-Collective/nubian-dsa-connect/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Open-Currency-Collective/bxdfi-dsa-connect/"
+    "url": "https://github.com/Open-Currency-Collective/nubian-dsa-connect/"
   },
   "author": {
-    "name": "BXDFI",
-    "email": "info@bxdfi.com"
+    "name": "Nubian",
+    "email": "info@nubian.com"
   },
   "license": "MIT",
   "keywords": [

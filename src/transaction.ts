@@ -12,7 +12,7 @@ export class Transaction {
     return new Promise(async (resolve, reject) => {
       if (transactionConfig.to == Addresses.genesis)
         throw Error(
-          `Please configure the DSA instance by calling dsa.setInstance(dsaId). More details: https://docs.bxdfi.com/setup`
+          `Please configure the DSA instance by calling dsa.setInstance(dsaId). More details: https://docs.nubian.com/setup`
         )
 
       if (this.dsa.config.mode == 'node') {
@@ -22,7 +22,7 @@ export class Transaction {
         )
 
         if (!signedTransaction.rawTransaction)
-          throw new Error('Error while signing transaction. Please contact our support: https://docs.bxdfi.com/')
+          throw new Error('Error while signing transaction. Please contact our support: https://docs.nubian.com/')
         this.dsa.web3.eth
           .sendSignedTransaction(signedTransaction.rawTransaction)
           .on('receipt', (txReciept) => {

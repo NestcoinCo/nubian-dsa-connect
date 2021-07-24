@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Running tests for bxdfi-dsa-connect"
+echo "Running tests for nubian-dsa-connect"
 
 echo "Starting ganache-cli"
 npm run ganache:fork &
