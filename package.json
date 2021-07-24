@@ -1,6 +1,6 @@
 {
   "name": "bxdfi-dsa-connect",
-  "version": "0.1.0",
+  "version": "0.1.9",
   "description": "BXDFI DSA connect",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -82,6 +82,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "@material-ui/icons": "^4.11.2",
     "@truffle/hdwallet-provider": "^1.4.0"
   }
 }

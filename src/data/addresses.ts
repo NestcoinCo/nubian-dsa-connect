@@ -8,9 +8,10 @@ export const Addresses = {
     events: '0x1fd75144E5b34Ba446d46b4F1eef6a98bd4628F5',
   },
   connectors: {
-    pancakeswap: '0x44b01FbC728b5FEE7306660e80a61e4F83517F49',
+    pancakeswap: '0x511910621D673A632FB323D0bc3E2296D4fc6A62',
     basic: '0xC2e1c0fc0A2c0126AD5222D6eB2453c6aEc1e637',
-    venus: "0x4fFcfd0f62352E33BB02710fD4c7D2049644B13D"
+    venus: "0x4fFcfd0f62352E33BB02710fD4c7D2049644B13D",
+    nubianStaking: "0x0764C090a14E45Ae23F69732BeB28504f89D669A"
   },
   read: {
     core: '0xab50189dc5dC39952F3b927825371f8d73E3Fa5e',

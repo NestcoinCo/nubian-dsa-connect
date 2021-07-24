@@ -48,58 +48,12 @@ describe('Basic', function () {
 
 describe('DSA v2', function () {
   test('create new dsa v2', async () => {
-    let dsaAccounts = await dsa.accounts.getAccounts(account)
-
-    console.log(dsaAccounts, 'here')
-
-    const accountCount = dsaAccounts.length
-
-    console.log(accountCount, 'number of dsa created')
-
-    console.log(dsaAccounts, 'amount of dsa accounts')
-
-    await dsa.build({ version: 2, gasPrice })
-
-    dsaAccounts = await dsa.accounts.getAccounts(account)
-
-    const createdDSA = dsaAccounts[dsaAccounts.length - 1]
-
-    console.log(createdDSA, 'created DSA')
-    await dsa.setAccount(createdDSA.id)
-    expect(dsa.instance.id).toEqual(createdDSA.id)
-    expect(dsa.instance.version).toEqual(2)
-  }, 10000000)
-
-  test('Deposit 0.01 bnb to DSA', async () => {
-    const amt = web3.utils.toWei('0.001', 'ether')
-
-    console.log(dsa.instance.address, 'dsa instance')
-    const data = {
-      token: bnbAddr,
-      amount: amt,
-      to: dsa.instance.address,
-      from: account,
-      gasPrice,
-    }
-    await dsa.erc20.transfer(data)
-
-    const balance = await web3.eth.getBalance(dsa.instance.address)
-
-    console.log(balance, 'lamba')
-
-    console.log(balance, 'balance of dsa')
-    // expect(balance).toEqual(amt.toString())
-  }, 1000000)
-
-  test('lend 1 busd with dsa, borrow 0.1 busd, withdraw money lended and payback borrow', async () => {
     const spells = dsa.Spell()
-    const lendAmt = web3.utils.toWei('1.3', 'ether')
-    const borrowAmt = web3.utils.toWei('0.3', 'ether')
-    const withdrawAmt = web3.utils.toWei('0.8', 'ether')
-
+    const amt = web3.utils.toWei('1', 'ether')
+  
     var data = {
       token: busdAddr,
-      amount: lendAmt,
+      amount: amt,
       to: dsa.instance.address,
       from: account,
       gasPrice,
@@ -111,31 +65,11 @@ describe('DSA v2', function () {
     console.log('deposit busd for dsa')
 
     spells.add({
-      connector: 'VenusV2',
+      connector: 'PancakeV2',
       method: 'deposit',
-      args: ['BUSD-A', lendAmt, dsa.instance.id, dsa.instance.id],
+      args: [daiAddr,busdAddr,amt,amt,0,0,0],
     })
-    console.log('deposit money into venus')
-    spells.add({
-      connector: 'VenusV2',
-      method: 'borrow',
-      args: ['BUSD-A', borrowAmt, dsa.instance.id, dsa.instance.id],
-    })
-    console.log('borrow money from venus')
-    spells.add({
-      connector: 'VenusV2',
-      method: 'withdraw',
-      args: ['BUSD-A', withdrawAmt, dsa.instance.id, dsa.instance.id],
-    })
-    console.log('withdraw money from venus')
-    spells.add({
-      connector: 'VenusV2',
-      method: 'payback',
-      args: ['BUSD-A', borrowAmt, dsa.instance.id, dsa.instance.id],
-    })
-
-    console.log('payback money to venus')
-
+ 
     const gas = await spells.estimateCastGas({ from: account })
     expect(gas).toBeDefined()
 
@@ -148,7 +82,110 @@ describe('DSA v2', function () {
     console.log(txHash, 'transaction hash')
     //const txHash = await spells.cast({ from: account, gasPrice, nonce: nonce })
     expect(txHash).toBeDefined()
-  }, 100000)
+  }, 10000000)
+
+  //   test('create new dsa v2', async () => {
+  //   let dsaAccounts = await dsa.accounts.getAccounts(account)
+
+  //   console.log(dsaAccounts, 'here')
+
+  //   const accountCount = dsaAccounts.length
+
+  //   console.log(accountCount, 'number of dsa created')
+
+  //   console.log(dsaAccounts, 'amount of dsa accounts')
+
+  //   await dsa.build({ version: 2, gasPrice })
+
+  //   dsaAccounts = await dsa.accounts.getAccounts(account)
+
+  //   const createdDSA = dsaAccounts[dsaAccounts.length - 1]
+
+  //   console.log(createdDSA, 'created DSA')
+  //   await dsa.setAccount(createdDSA.id)
+  //   expect(dsa.instance.id).toEqual(createdDSA.id)
+  //   expect(dsa.instance.version).toEqual(2)
+  // }, 10000000)
+
+  // test('Deposit 0.01 bnb to DSA', async () => {
+  //   const amt = web3.utils.toWei('0.001', 'ether')
+
+  //   console.log(dsa.instance.address, 'dsa instance')
+  //   const data = {
+  //     token: bnbAddr,
+  //     amount: amt,
+  //     to: dsa.instance.address,
+  //     from: account,
+  //     gasPrice,
+  //   }
+  //   await dsa.erc20.transfer(data)
+
+  //   const balance = await web3.eth.getBalance(dsa.instance.address)
+
+  //   console.log(balance, 'lamba')
+
+  //   console.log(balance, 'balance of dsa')
+  //   // expect(balance).toEqual(amt.toString())
+  // }, 1000000)
+
+  // test('lend 1 busd with dsa, borrow 0.1 busd, withdraw money lended and payback borrow', async () => {
+  //   const spells = dsa.Spell()
+  //   const lendAmt = web3.utils.toWei('1.3', 'ether')
+  //   const borrowAmt = web3.utils.toWei('0.3', 'ether')
+  //   const withdrawAmt = web3.utils.toWei('0.8', 'ether')
+
+  //   var data = {
+  //     token: busdAddr,
+  //     amount: lendAmt,
+  //     to: dsa.instance.address,
+  //     from: account,
+  //     gasPrice,
+  //   }
+  //   await dsa.erc20.approve(data)
+  //   console.log('approve busd for dsa')
+
+  //   await dsa.erc20.transfer(data)
+  //   console.log('deposit busd for dsa')
+
+  //   spells.add({
+  //     connector: 'VenusV2',
+  //     method: 'deposit',
+  //     args: ['BUSD-A', lendAmt, dsa.instance.id, dsa.instance.id],
+  //   })
+  //   console.log('deposit money into venus')
+  //   spells.add({
+  //     connector: 'VenusV2',
+  //     method: 'borrow',
+  //     args: ['BUSD-A', borrowAmt, dsa.instance.id, dsa.instance.id],
+  //   })
+  //   console.log('borrow money f  rom venus')
+  //   spells.add({
+  //     connector: 'VenusV2',
+  //     method: 'withdraw',
+  //     args: ['BUSD-A', withdrawAmt, dsa.instance.id, dsa.instance.id],
+  //   })
+  //   console.log('withdraw money from venus')
+  //   spells.add({
+  //     connector: 'VenusV2',
+  //     method: 'payback',
+  //     args: ['BUSD-A', borrowAmt, dsa.instance.id, dsa.instance.id],
+  //   })
+
+  //   console.log('payback money to venus')
+
+  //   const gas = await spells.estimateCastGas({ from: account })
+  //   expect(gas).toBeDefined()
+
+  //   let nonce = await web3.eth.getTransactionCount(account)
+
+  //   const calldata = await dsa.encodeCastABI(spells)
+  //   expect(calldata).toBeDefined()
+
+  //   const txHash = await dsa.cast({ spells: spells, from: account })
+  //   console.log(txHash, 'transaction hash')
+  //   //const txHash = await spells.cast({ from: account, gasPrice, nonce: nonce })
+  //   expect(txHash).toBeDefined()
+  // }, 100000)
 
   // test('Give USDC allowance and deposit to smart account', async () => {
   //   var data = {

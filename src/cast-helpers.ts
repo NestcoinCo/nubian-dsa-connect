@@ -56,6 +56,7 @@ export class CastHelpers {
    * @param params.origin (optional) the transaction origin source
    */
   encodeABI = (params: Spells | EncodeAbiParams) => {
+    console.log("Encode ABI", params)
     const defaults = {
       to: this.dsa.instance.address,
       origin: this.dsa.origin,
