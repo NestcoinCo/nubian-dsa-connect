@@ -1,4 +1,4 @@
-# NUBIAN DSA Connect ![Build Status](https://bafybeifrgm76bnmlm6xyscgmgxrjkjfh5okho4yknxohoy3jatknetkggi.ipfs.dweb.link/)
+# NUBIAN DSA Connect ![Build Status](https://nubian-frontend.netlify.app/static/media/logo.cf0483d3.svg)
 
 The official DSA SDK for JavaScript, available for browsers and Node.js backends.
 
