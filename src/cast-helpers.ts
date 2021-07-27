@@ -26,7 +26,7 @@ export class CastHelpers {
 
     if (to === Addresses.genesis)
       throw new Error(
-        `Please configure the DSA instance by calling dsa.setInstance(dsaId). More details: https://docs.bxdfi.com/setup`
+        `Please configure the DSA instance by calling dsa.setInstance(dsaId). More details: https://docs.nubian.com/setup`
       )
 
     const { targets, spells } = this.dsa.internal.encodeSpells(params)
@@ -56,6 +56,7 @@ export class CastHelpers {
    * @param params.origin (optional) the transaction origin source
    */
   encodeABI = (params: Spells | EncodeAbiParams) => {
+    console.log("Encode ABI", params)
     const defaults = {
       to: this.dsa.instance.address,
       origin: this.dsa.origin,
@@ -65,7 +66,7 @@ export class CastHelpers {
 
     if (mergedParams.to === Addresses.genesis)
       throw new Error(
-        `Please configure the DSA instance by calling dsa.setInstance(dsaId). More details: https://docs.bxdfi.com/setup`
+        `Please configure the DSA instance by calling dsa.setInstance(dsaId). More details: https://docs.nubian.com/setup`
       )
 
     const contract = new this.dsa.config.web3.eth.Contract(

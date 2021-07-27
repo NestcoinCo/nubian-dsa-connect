@@ -1,7 +1,8 @@
 export default {
-   
     "authority" :"AUTHORITY-A",
     "basic" :"BASIC-A",
-    "pancakeswap" :"PancakeswapV2",
-    "venus" : "VenusV2"
+    "pancakeswap" :"PancakeV2",
+    "venus" : "VenusV2",
+    "autofarm" : "AutofarmV2",
+    "nubianStaking": "NubianStaking"
 }

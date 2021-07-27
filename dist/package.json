@@ -1,5 +1,5 @@
 {
-  "name": "bxdfi-dsa-connect",
+  "name": "nubian-dsa-connect",
   "version": "0.0.5",
   "description": "Build DeFi apps instantly",
   "main": "index.js",
@@ -21,14 +21,14 @@
     "open-releases": "open \"$(node -e 'console.log(`${require(\"./package.json\").repository}/releases`)')\"",
     "ganache:fork": "dotenv -- cross-var npx ganache-cli --fork %ETH_NODE_URL% --unlock %PUBLIC_ADDRESS%"
   },
-  "bugs": "https://github.com/Open-Currency-Collective/bxdfi-dsa-connect/issues",
+  "bugs": "https://github.com/Open-Currency-Collective/nubian-dsa-connect/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Open-Currency-Collective/bxdfi-dsa-connect"
+    "url": "https://github.com/Open-Currency-Collective/nubian-dsa-connect"
   },
   "author": {
     "name": "Open currency collective",
-    "email": "info@Bxdfi.io"
+    "email": "info@nubian.io"
   },
   "license": "MIT",
   "keywords": [

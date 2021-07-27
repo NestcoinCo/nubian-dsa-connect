@@ -1,4 +1,4 @@
-# BXDFI DSA Connect ![Build Status](https://bafybeifrgm76bnmlm6xyscgmgxrjkjfh5okho4yknxohoy3jatknetkggi.ipfs.dweb.link/)
+# NUBIAN DSA Connect ![Build Status](https://nubian-frontend.netlify.app/static/media/logo.cf0483d3.svg)
 
 The official DSA SDK for JavaScript, available for browsers and Node.js backends.
 
@@ -7,13 +7,13 @@ The official DSA SDK for JavaScript, available for browsers and Node.js backends
 To get started, install the DSA Connect package from npm:
 
 ```bash
-npm install bxdfi-dsa-connect
+npm install nubian-dsa-connect
 ```
 
 For browsers, via jsDelivr CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/bxdfi-dsa-connect@latest/dist/index.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/nubain-dsa-connect@latest/dist/index.bundle.min.js"></script>
 ```
 
 ### Usage
@@ -34,7 +34,7 @@ if (window.ethereum) {
 ```js
 // in nodejs
 const Web3 = require('web3')
-const DSA = require('bxdfi-dsa-connect')
+const DSA = require('nubian-dsa-connect')
 const web3 = new Web3(new Web3.providers.HttpProvider(ETH_NODE_URL))
 ```
 
@@ -205,4 +205,4 @@ This will send the transaction to blockchain in node implementation (or ask user
 
 ## Connectors
 
-You can see the list of connectors [here](src/addresses) & [here](https://github.com/Open-Currency-Collective/bxdfi-dsa-connect/blob/main/README.md)
+You can see the list of connectors [here](src/addresses) & [here](https://github.com/Open-Currency-Collective/nubian-dsa-connect/blob/main/README.md)

@@ -99,6 +99,8 @@ export class Internal {
    */
   encodeMethod = (params: { connector: Connector; method: string; args: string[]}, version: Version = this.dsa.instance.version) => {
 
+    console.log("Params", params);
+
     // type check that object has the required properties
     if (!(hasKey(Abi.connectors.versions, version) && hasKey(Abi.connectors.versions[version], params.connector))) {
       throw new Error(`ConnectorInterface '${params.method}' not found`)
@@ -106,6 +108,9 @@ export class Internal {
 
     // Abi.connectors.versions[version]
     const connectorInterface = this.getInterface(Abi.connectors.versions[version][params.connector], params.method)
+
+    console.log("Interface", connectorInterface);
+
 
     if (!connectorInterface) throw new Error(`ConnectorInterface '${params.method}' not found`)
     return this.dsa.web3.eth.abi.encodeFunctionCall(connectorInterface, params.args)
