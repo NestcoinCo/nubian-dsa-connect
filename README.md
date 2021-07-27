@@ -153,13 +153,15 @@ let spells = dsa.Spell()
 
 Add **spells** that you want to execute. Think of any actions, and by just adding new SPELLS, you can wonderfully CAST transactions across protocols. Let's try to execute the following actions:
 
-- Deposit 1 ETH to Aave
+- Deposit 1 ETH to Venus protocol
 - Borrow 100 DAI
-- Deposit borrowed DAI on Compound
+- Deposit borrowed DAI on Venus
 
 ```js
+- Deposit
+
 spells.add({
-  connector: "pancakeswap",
+  connector: "VenusV2",
   method: "deposit",
   args: [
     "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
@@ -169,11 +171,34 @@ spells.add({
   ]
 })
 
+- Borrow
 
-)
+spells.add({
+  connector: "VenusV2",
+  method: "borrow",
+  args: [
+    "DaiAddress",
+    "100000000000000000000" // 100 Dai (10^18 wei),
+    0,
+    0
+  ]
+})
+
+- Deposit Dai
+
+spells.add({
+  connector: "VenusV2",
+  method: "deposit",
+  args: [
+    "DaiAddress",
+    "100000000000000000000" // 100 Dai (10^18 wei),
+    0,
+    0
+  ]
+})
 ```
 
-**Note** - Make sure, your smart account have the equivalent ETH balance before executing the above actions.
+**Note** - Make sure, your smart account have the equivalent BNB balance before executing the above actions.
 
 At last, cast your spell using `cast()` method.
 
@@ -190,7 +215,7 @@ You can also pass an object to send **optional** parameters like sending ETH alo
 ```js
 spells.cast({
   gasPrice: web3.utils.toWei(gasPrice, 'gwei'), // in gwei, used in node implementation.
-  value: '1000000000000000000', // sending 1 Eth along the transaction.
+  value: '1000000000000000000', // sending 1 BNB along the transaction.
   nonce: nonce,
 })
 ```
@@ -198,7 +223,7 @@ spells.cast({
 | **Parameter (optional)** | **Type**        | **Description**                                                                                                                                                                |
 | ------------------------ | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `gasPrice`               | _string/number_ | The gas price in gwei. Mostly used in Node implementation to configure the transaction confirmation speed.                                                                     |
-| `value`                  | _string/number_ | Amount of ETH which you want to send along with the transaction (in wei).                                                                                                      |
+| `value`                  | _string/number_ | Amount of BNB which you want to send along with the transaction (in wei).                                                                                                      |
 | `nonce`                  | _string/number_ | Nonce of your sender account. Mostly used in Node implementation to send transaction with a particular nonce either to override unconfirmed transaction or some other purpose. |
 
 This will send the transaction to blockchain in node implementation (or ask users to confirm the transaction on web3 wallet like Metamask).
