@@ -1,3 +1,4 @@
+// @ts-ignore
 import { TransactionConfig } from 'web3-core'
 import { Addresses } from './addresses'
 import { DSA } from './dsa'
@@ -23,27 +24,16 @@ export class Transaction {
 
         if (!signedTransaction.rawTransaction)
           throw new Error('Error while signing transaction. Please contact our support: https://docs.nubian.com/')
+
         this.dsa.web3.eth
           .sendSignedTransaction(signedTransaction.rawTransaction)
-          .on('receipt', (txReciept) => {
-            //resolve(txReciept)
-            return txReciept
-          })
-          .on('error', (error) => {
-            reject(error)
-            return
-          })
+          .on('receipt', (txReciept: any) => resolve(txReciept))
+          .on('error', (error: any) => reject(error))
       } else {
         this.dsa.web3.eth
           .sendTransaction(transactionConfig)
-          .on('receipt', (txReciept) => {
-            //resolve(txReciept)
-            return txReciept
-          })
-          .on('error', (error) => {
-            reject(error)
-            return
-          })
+          .on('receipt', (txReciept: any) => resolve(txReciept))
+          .on('error', (error: any) => reject(error))
       }
     })
   }
