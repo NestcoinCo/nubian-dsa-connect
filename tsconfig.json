@@ -4,7 +4,7 @@
     "module": "ES6",
     "moduleResolution": "Node",
     "sourceMap": true,
-    "lib": [],
+    "lib": ["esnext"],
     "esModuleInterop": true,
     "strict": true,
     "declaration": true,
