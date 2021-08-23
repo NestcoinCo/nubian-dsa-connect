@@ -13,7 +13,7 @@ npm install nubian-dsa-connect
 For browsers, via jsDelivr CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/nubain-dsa-connect@latest/dist/index.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/nubian-dsa-connect@latest/dist/index.bundle.js"></script>
 ```
 
 ### Usage

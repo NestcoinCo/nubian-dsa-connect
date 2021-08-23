@@ -9,6 +9,9 @@ import { Spells } from './spells'
 import { Transaction } from './transaction'
 import { wrapIfSpells } from './utils'
 import { Erc20 } from './utils/erc20'
+require("dotenv").config();
+const axios = require('axios');
+
 
 type DSAConfig =
   | {
@@ -398,6 +401,20 @@ export class DSA {
       .encodeABI()
 
     return data
+  }
+
+  async getAccountTransactions(address: string)
+  {
+    console.log("gettting account details for ", address);
+    let url = `https://api.bscscan.com/api?module=account&action=txlist&address=${address}&startblock=1&endblock=99999999&sort=asc&apikey=${process.env.BSCSCAN_API_KEY}`
+    let response  =  await axios.get(url);
+    if(response && response.data && response.data.result)
+    {
+      console.log(response.data.result);
+    }else{
+      return [];
+    }
+    
   }
 }
 
