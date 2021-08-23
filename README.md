@@ -228,6 +228,15 @@ spells.cast({
 
 This will send the transaction to blockchain in node implementation (or ask users to confirm the transaction on web3 wallet like Metamask).
 
+## Transactions
+
+You can see the list of transactions by an address:
+```js
+dsa.getAccountTransactions("0x00");
+```
+Replace `0x0` with the address of the DSA account.
+
+
 ## Connectors
 
 You can see the list of connectors [here](src/addresses) & [here](https://github.com/Open-Currency-Collective/nubian-dsa-connect/blob/main/README.md)
