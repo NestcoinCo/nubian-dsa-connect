@@ -2,7 +2,7 @@ import { DSA } from '../dsa'
 import { Spells } from '../spells'
 
 
-export class Bxdpool_v2 {
+export class Nubianpool_v2 {
   constructor(private dsa: DSA) {}
 
    /**
