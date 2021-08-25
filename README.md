@@ -1,6 +1,6 @@
 # NUBIAN DSA Connect ![Build Status](https://nubian-frontend.netlify.app/static/media/logo.cf0483d3.svg)
 
-The official DSA SDK for JavaScript, available for browsers and Node.js backends.
+The official DeFi Smart Account (DSA) Software Development Kit (SDK) for JavaScript, available for browsers and Node.js backends.
 
 ## Installation
 
@@ -13,7 +13,7 @@ npm install nubian-dsa-connect
 For browsers, via jsDelivr CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/nubain-dsa-connect@latest/dist/index.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/nubian-dsa-connect@latest/dist/index.bundle.js"></script>
 ```
 
 ### Usage
@@ -56,13 +56,15 @@ const dsa = new DSA({
 
 Every user needs to create Smart Account to interact with DeFi Protocols seamlessly; this allows developers to build extensible use-cases with maximum security and composability. You can also create multiple account for a single address.
 
+To get started using the SDK, you must do one or all of the following:
+
 - Create Smart Account - `build()`
 - Fetch Smart Accounts - `getAccounts()`
 - Set Smart Account - `setInstance()`
 
 ### build()
 
-Create a DSA Account. If the account is already created, you can use the `setInstance` method to activate a paricular DSA account and start casting spells.
+This creates a uniquely numbered Smart Account which acts as a proxy to interact with verified DeFi protocols and each DSA has a unique ethereum address. If the account is already created, you can use the `setInstance` method to activate a paricular DSA account and start casting spells.
 
 ```js
 // in async functions
@@ -82,19 +84,22 @@ dsa.build({
 })
 ```
 
-> View this [Gist](https://gist.github.com/thrilok209/8b19dbd8d46b2805ab8bb8973611aea2) for estimation of gas price
+> View this [Gist](https://gist.github.com/nonseodion/39f9c7a46b122131e8cec95ad4350cf0) for estimation of gas price
 
-| **Parameter** | **Type**        | **Description**                                                                                                                                                                |
-| ------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `gasPrice`    | _string/number_ | The gas price in gwei. Mostly used in Node implementation to configure the transaction confirmation speed.                                                                     |
-| `origin`      | _address_       | The address to track the origin of transaction. Used for analytics and affiliates.                                                                                             |
-| `authority`   | _address_       | The DSA authority. The address to be added as authority.                                                                                                                       |
-| `from`        | _address_       | The account with which you want to create your DSA. This is helpful to create DSA for other addresses.                                                                         |
-| `nonce`       | _string/number_ | Nonce of your sender account. Mostly used in Node implementation to send transaction with a particular nonce either to override unconfirmed transaction or some other purpose. |
+#### Parameters
 
-The method returns the transaction hash.
+| **Parameter** | **Type**        | **Description** | **Default** |
+| ------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| gasPrice    | `string/number` | The gas price in gwei. Mostly used in Node implementation to configure the transaction confirmation speed. | Not optional in Node and estimated in other modes.  |
+| origin      | `address`       | The address to track the origin of transaction. Used for analytics and affiliates.|  `0x0` |
+| authority   | `address`       | The DSA authority. The address to be added as authority. An authority has control over the DSA created. | Address of the connected wallet, private key address or public key in Browser, Node and Simulation modes respectively. |
+| from        | `address`       | The account with which you want to create your DSA. This is helpful to create DSA for other addresses. | Same as authority. |
+| nonce       | `string/number` | Nonce of your sender account. Mostly used in Node implementation to send transaction with a particular nonce either to override unconfirmed transaction or some other purpose. |  Used only in Node. |
+| version       | `string/number` | The DSA version to create. | 2 |
 
-This creates a uniquely numbered Smart Account which acts as a proxy to interact with verified DeFi protocols and each DSA has a unique ethereum address.
+#### Returns
+
+This function returns a promise that resolves to the transaction receipt when the transaction is mined.
 
 ### getAccounts()
 
@@ -108,18 +113,22 @@ await dsa.getAccounts(address)
 dsa.getAccounts(address).then(console.log)
 ```
 
+#### Parameter
+
 | **Parameter** | **Type**  | **Description**      |
 | ------------- | --------- | -------------------- |
-| `address`     | _address_ | An ethereum address. |
+| address     | `address` | An ethereum address. |
 
-The method returns an array of objects with all the DSA accounts where `address` is authorised:
+#### Returns
+
+The method returns a promise that resolves to an array of objects with all the DSA accounts where `address` is authorised. Here's how it looks:
 
 ```js
 [
   {
       id: 52, // DSA ID
       address: "0x...", // DSA Address
-      version: 1 // DSA version
+      version: 2 // DSA version
   },
   ...
 ]
@@ -127,17 +136,30 @@ The method returns an array of objects with all the DSA accounts where `address`
 
 ### setInstance()
 
-Be sure to configure global values by calling `setInstance()`. You can get the id by calling `getAccounts()`. The configured account will be used for all subsequent calls.
+Be sure to configure global values by calling `setInstance()`. You can get the id of the DSA by calling `getAccounts()`. The configured account will be used for all subsequent calls.
 
 ```js
 dsa.setInstance(dsaId) // DSA ID
 ```
 
+#### Parameter
+
 | **Parameter** | **Type** | **Description**                |
 | ------------- | -------- | ------------------------------ |
-| `dsaId`       | _Number_ | DSA ID to be used for casting. |
+| dsaId       | `Number` | DSA ID to be used for casting spells. |
 
-The method returns an array of objects with all the DSA accounts where `address` is authorised:
+#### Returns
+
+This method returns a promise that resolves to the newly set instance. Here's how it looks:
+
+```js
+  {
+    id: 0, // DSA ID
+    address: "0x...", // Address of DSA
+    version: 2, // Version of DSA
+    chainId: 56,
+  }
+```
 
 ## Casting Spells
 
@@ -151,83 +173,105 @@ Create an instance:
 let spells = dsa.Spell()
 ```
 
-Add **spells** that you want to execute. Think of any actions, and by just adding new SPELLS, you can wonderfully CAST transactions across protocols. Let's try to execute the following actions:
+Add **spells** that you want to execute. Think of any action, and by just adding new SPELLS, you can wonderfully CAST transactions across protocols. Let's try to execute the following actions:
 
-- Deposit 1 ETH to Venus protocol
-- Borrow 100 DAI
-- Deposit borrowed DAI on Venus
+1. Deposit 1 BNB in the DSA.
+2. Deposit 1 BNB in Venus protocol.
+3. Borrow 100 USDC from Venus.
+4. Deposit borrowed USDC in Venus.
 
 ```js
-- Deposit
+// Deposit BNB in DSA
 
 spells.add({
-  connector: "VenusV2",
+  connector: "BASIC-A",
   method: "deposit",
   args: [
-    "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-    "1000000000000000000", // 1 ETH (10^18 wei)
+    "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+    "1000000000000000000", // 1 BNB (10^18 wei)
     0,
     0
   ]
 })
 
-- Borrow
+
+// Deposit BNB in Venus
+
+spells.add({
+  connector: "VenusV2",
+  method: "deposit",
+  args: [
+    "BNB-A",
+    "1000000000000000000", // 1 BNB (10^18 wei)
+    0,
+    0
+  ]
+})
+
+// Borrow USDC from Venus
 
 spells.add({
   connector: "VenusV2",
   method: "borrow",
   args: [
-    "DaiAddress",
-    "100000000000000000000" // 100 Dai (10^18 wei),
+    "USDC-A",
+    "100000000000000000000", // 100 USDC (10^18 wei)
     0,
     0
   ]
 })
 
-- Deposit Dai
+// Deposit USDC in Venus
 
 spells.add({
   connector: "VenusV2",
   method: "deposit",
   args: [
-    "DaiAddress",
-    "100000000000000000000" // 100 Dai (10^18 wei),
+    "USDC-A",
+    "100000000000000000000", // 100 USDC (10^18 wei)
     0,
     0
   ]
 })
 ```
 
-**Note** - Make sure, your smart account have the equivalent BNB balance before executing the above actions.
-
 At last, cast your spell using `cast()` method.
 
 ```js
 // in async functions
-let transactionHash = await spells.cast()
+let transactionReceipt = await spells.cast({value: "1000000000000000000"})
 
 // or
-spells.cast().then(console.log) // returns transaction hash
+spells.cast().then(console.log) // returns transaction receipt
 ```
 
-You can also pass an object to send **optional** parameters like sending ETH along with the transaction.
+You can pass an object to send **optional** parameters like sending ETH along with the transaction like we did above to deposit in the DSA.
 
 ```js
 spells.cast({
   gasPrice: web3.utils.toWei(gasPrice, 'gwei'), // in gwei, used in node implementation.
-  value: '1000000000000000000', // sending 1 BNB along the transaction.
+  value: '1000000000000000000', // sending 1 BNB along with the transaction.
   nonce: nonce,
 })
 ```
 
+Here are the optional parameters, they have the same defaults as their counterparts in `dsa.build()`.
+
 | **Parameter (optional)** | **Type**        | **Description**                                                                                                                                                                |
 | ------------------------ | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `gasPrice`               | _string/number_ | The gas price in gwei. Mostly used in Node implementation to configure the transaction confirmation speed.                                                                     |
-| `value`                  | _string/number_ | Amount of BNB which you want to send along with the transaction (in wei).                                                                                                      |
-| `nonce`                  | _string/number_ | Nonce of your sender account. Mostly used in Node implementation to send transaction with a particular nonce either to override unconfirmed transaction or some other purpose. |
+| gasPrice               | `string/number` | The gas price in gwei. Mostly used in Node implementation to configure the transaction confirmation speed.                                                                     |
+| value                  | `string/number` | Amount of BNB which you want to send along with the transaction (in wei).                                                                                                      |
+| nonce                  | `string/number` | Nonce of your sender account. Mostly used in Node implementation to send transaction with a particular nonce either to override unconfirmed transaction or some other purpose. |
 
-This will send the transaction to blockchain in node implementation (or ask users to confirm the transaction on web3 wallet like Metamask).
+This will send the transaction to blockchain in node implementation (or ask users to confirm the transaction on web3 wallets like Metamask).
 
 ## Connectors
 
-You can see the list of connectors [here](src/addresses) & [here](https://github.com/Open-Currency-Collective/nubian-dsa-connect/blob/main/README.md)
+| **Name** | **Address** |
+|-----|------|
+| **AUTHORITY-A** | 0x2183550a2afE501BcB42CA6e08531685624ee2B4 |
+| **BASIC-A** | 0xC2e1c0fc0A2c0126AD5222D6eB2453c6aEc1e637 |
+| **PancakeV2** | 0x546bde105B24147bbd34F3147a0FD68961515Feb |
+| **VenusV2** | 0xB03308Fa6A1Ecb489ECC86B7e930491020ee2b96 |
+| **AutofarmV2** | 0x82aB4bCD90E99f31a90201669AACC6867c9c3B77 |
+| **NubianStaking** | 0x0764C090a14E45Ae23F69732BeB28504f89D669A |
