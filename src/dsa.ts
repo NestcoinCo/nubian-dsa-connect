@@ -9,8 +9,8 @@ import { Spells } from './spells'
 import { Transaction } from './transaction'
 import { wrapIfSpells } from './utils'
 import { Erc20 } from './utils/erc20'
-require("dotenv").config();
-const axios = require('axios');
+import dotenv from 'dotenv'
+import axios from 'axios'
 
 
 type DSAConfig =
