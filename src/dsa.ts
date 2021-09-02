@@ -411,7 +411,7 @@ export class DSA {
     let response  =  await axios.get(url);
     if(response && response.data && response.data.result)
     {
-      console.log(response.data.result);
+      return response.data.result;
     }else{
       return [];
     }
