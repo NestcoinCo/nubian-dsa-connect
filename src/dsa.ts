@@ -407,7 +407,7 @@ export class DSA {
   {
     console.log("gettting account details for ", address);
     //To get list Of internal transactions: https://api.bscscan.com/api?module=account&action=txlistinternal&address=0x0000000000000000000000000000000000001004&startblock=0&endblock=2702578&sort=asc&apikey=YourApiKeyToken
-    let url = `https://api.bscscan.com/api?module=account&action=txlist&address=${address}&startblock=1&endblock=99999999&sort=asc&apikey=${process.env.BSCSCAN_API_KEY}`
+    let url = `https://nubian-api.herokuapp.com/api/bsc/getAccountTransactions?address=${address}`;
     let response  =  await axios.get(url);
     if(response && response.data && response.data.result)
     {
