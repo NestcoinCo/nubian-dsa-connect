@@ -403,7 +403,7 @@ export class DSA {
     return data
   }
 
-  async getAccountTransactions(address: string)
+  async getAccountTransactions(address: string, contractAddress: string = "0x0")
   {
     console.log("gettting account details for ", address);
     //To get list Of internal transactions: https://api.bscscan.com/api?module=account&action=txlistinternal&address=0x0000000000000000000000000000000000001004&startblock=0&endblock=2702578&sort=asc&apikey=YourApiKeyToken
