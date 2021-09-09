@@ -403,11 +403,11 @@ export class DSA {
     return data
   }
 
-  async getAccountTransactions(address: string, filterContractAddress: string = "0x0")
+  async getAccountTransactions(address: string, filterContractAddress: string = "")
   {
     console.log("gettting account details for ", address);
     //To get list Of internal transactions: https://api.bscscan.com/api?module=account&action=txlistinternal&address=0x0000000000000000000000000000000000001004&startblock=0&endblock=2702578&sort=asc&apikey=YourApiKeyToken
-    let url = `https://nubian-api.herokuapp.com/api/bsc/getAccountTransactions?address=${address}`;
+    let url = `https://nubian-api.herokuapp.com/api/bsc/getAccountTransactions?address=${address}&filterAddress=${filterContractAddress}`;
     let response  =  await axios.get(url);
     if(response && response.data)
     {

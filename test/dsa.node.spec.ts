@@ -302,6 +302,6 @@ describe('DSA v2', function () {
   // })
 
    test('Get Account Transactions', async () => {
-    await dsa.getAccountTransactions("0x3e0fD2618C545A70758BCd14D746a6377fe91ccF");
+    await dsa.getAccountTransactions("0x9AB0E48fEe9880f1E953CA5B038089160c898c54", "0x66fdb2eccfb58cf098eaa419e5efde841368e489");
   })
 })
