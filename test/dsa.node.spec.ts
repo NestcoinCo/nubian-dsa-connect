@@ -18,8 +18,6 @@ const provider = new HDWalletProvider(`${process.env.PRIVATE_KEY}`, `https://bsc
 
 const accountPrivateKey: any = process.env.PRIVATE_KEY
 
-console.log(accountPrivateKey, 'lol')
-
 const bnbAddr = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
 const daiAddr = '0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3'
 const busdAddr = '0xe9e7cea3dedca5984780bafc599bd69add087d56'
@@ -27,62 +25,60 @@ const busdAddr = '0xe9e7cea3dedca5984780bafc599bd69add087d56'
 beforeAll(() => {
   web3 = new Web3(provider)
   dsa = new DSA({ web3, mode: 'node', privateKey: accountPrivateKey })
-
-  console.log(dsa, 'dsa instancee')
 })
 
-describe('Basic', function () {
-  test('initalization of DSA', () => {
-    expect(dsa).toBeDefined()
-  })
+// describe('Basic', function () {
+//   test('initalization of DSA', () => {
+//     expect(dsa).toBeDefined()
+//   })
 
-  test('get web3 accounts', async () => {
-    const accounts = await web3.eth.getAccounts()
+//   test('get web3 accounts', async () => {
+//     const accounts = await web3.eth.getAccounts()
 
-    console.log(accounts, 'accounts')
-    const dsa_account = await dsa.internal.getAddress()
-    console.log(dsa_account, accounts[0])
-    account = accounts[0]
-  })
-})
+//     console.log(accounts, 'accounts')
+//     const dsa_account = await dsa.internal.getAddress()
+//     console.log(dsa_account, accounts[0])
+//     account = accounts[0]
+//   })
+// })
 
 describe('DSA v2', function () {
-  test('create new dsa v2', async () => {
-    const spells = dsa.Spell()
-    const amt = web3.utils.toWei('1', 'ether')
+  // test('create new dsa v2', async () => {
+  //   const spells = dsa.Spell()
+  //   const amt = web3.utils.toWei('1', 'ether')
   
-    var data = {
-      token: busdAddr,
-      amount: amt,
-      to: dsa.instance.address,
-      from: account,
-      gasPrice,
-    }
-    await dsa.erc20.approve(data)
-    console.log('approve busd for dsa')
+  //   var data = {
+  //     token: busdAddr,
+  //     amount: amt,
+  //     to: dsa.instance.address,
+  //     from: account,
+  //     gasPrice,
+  //   }
+  //   await dsa.erc20.approve(data)
+  //   console.log('approve busd for dsa')
 
-    await dsa.erc20.transfer(data)
-    console.log('deposit busd for dsa')
+  //   await dsa.erc20.transfer(data)
+  //   console.log('deposit busd for dsa')
 
-    spells.add({
-      connector: 'PancakeV2',
-      method: 'deposit',
-      args: [daiAddr,busdAddr,amt,amt,0,0,0],
-    })
+  //   spells.add({
+  //     connector: 'PancakeV2',
+  //     method: 'deposit',
+  //     args: [daiAddr,busdAddr,amt,amt,0,0,0],
+  //   })
  
-    const gas = await spells.estimateCastGas({ from: account })
-    expect(gas).toBeDefined()
+  //   const gas = await spells.estimateCastGas({ from: account })
+  //   expect(gas).toBeDefined()
 
-    let nonce = await web3.eth.getTransactionCount(account)
+  //   let nonce = await web3.eth.getTransactionCount(account)
 
-    const calldata = await dsa.encodeCastABI(spells)
-    expect(calldata).toBeDefined()
+  //   const calldata = await dsa.encodeCastABI(spells)
+  //   expect(calldata).toBeDefined()
 
-    const txHash = await dsa.cast({ spells: spells, from: account })
-    console.log(txHash, 'transaction hash')
-    //const txHash = await spells.cast({ from: account, gasPrice, nonce: nonce })
-    expect(txHash).toBeDefined()
-  }, 10000000)
+  //   const txHash = await dsa.cast({ spells: spells, from: account })
+  //   console.log(txHash, 'transaction hash')
+  //   //const txHash = await spells.cast({ from: account, gasPrice, nonce: nonce })
+  //   expect(txHash).toBeDefined()
+  // }, 10000000)
 
   //   test('create new dsa v2', async () => {
   //   let dsaAccounts = await dsa.accounts.getAccounts(account)
@@ -304,4 +300,8 @@ describe('DSA v2', function () {
   //   }
   //   await dsa.erc20.approve(data)
   // })
+
+   test('Get Account Transactions', async () => {
+    await dsa.getAccountTransactions("0x3e0fD2618C545A70758BCd14D746a6377fe91ccF");
+  })
 })

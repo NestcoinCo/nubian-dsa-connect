@@ -265,6 +265,15 @@ Here are the optional parameters, they have the same defaults as their counterpa
 
 This will send the transaction to blockchain in node implementation (or ask users to confirm the transaction on web3 wallets like Metamask).
 
+## Transactions
+
+You can see the list of transactions by an address:
+```js
+dsa.getAccountTransactions("0x00");
+```
+Replace `0x0` with the address of the DSA account.
+
+
 ## Connectors
 
 | **Name** | **Address** |

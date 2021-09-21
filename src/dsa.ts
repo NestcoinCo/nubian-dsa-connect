@@ -9,6 +9,9 @@ import { Spells } from './spells'
 import { Transaction } from './transaction'
 import { wrapIfSpells } from './utils'
 import { Erc20 } from './utils/erc20'
+import dotenv from 'dotenv'
+import axios from 'axios'
+
 
 type DSAConfig =
   | {
@@ -398,6 +401,21 @@ export class DSA {
       .encodeABI()
 
     return data
+  }
+
+  async getAccountTransactions(address: string)
+  {
+    console.log("gettting account details for ", address);
+    //To get list Of internal transactions: https://api.bscscan.com/api?module=account&action=txlistinternal&address=0x0000000000000000000000000000000000001004&startblock=0&endblock=2702578&sort=asc&apikey=YourApiKeyToken
+    let url = `https://nubian-api.herokuapp.com/api/bsc/getAccountTransactions?address=${address}`;
+    let response  =  await axios.get(url);
+    if(response && response.data && response.data.result)
+    {
+      return response.data.result;
+    }else{
+      return [];
+    }
+    
   }
 }
 
