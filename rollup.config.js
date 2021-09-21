@@ -61,6 +61,11 @@ export default [
         file: pkg.main,
         format: 'cjs',
         banner
+      },
+      {
+        file: pkg.module,
+        format: 'cjs',
+        banner
       }
     ],
     external,
