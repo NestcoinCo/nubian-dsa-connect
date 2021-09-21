@@ -56,6 +56,11 @@ export default [
         format: 'umd',
         name: 'DSA', // the global which can be used in a browser
         banner,
+      },
+      {
+        file: pkg.main,
+        format: 'cjs',
+        banner
       }
     ],
     external,

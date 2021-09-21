@@ -304,4 +304,15 @@ describe('DSA v2', function () {
    test('Get Account Transactions', async () => {
     await dsa.getAccountTransactions("0x9AB0E48fEe9880f1E953CA5B038089160c898c54", "0x66fdb2eccfb58cf098eaa419e5efde841368e489");
   })
+
+  test("Get Transaction Fee", async () => {
+    dsa.setInstance(1);
+    const spells = dsa.Spell()
+    spells.add({
+      connector: "PancakeV2",
+      method: "sell",
+      args: [daiAddr, busdAddr, 1000000000000000, 0, dsa.instance.id, dsa.instance.id],
+    });
+    let cost = await spells.estimateCastGas();
+  })
 })

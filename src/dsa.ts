@@ -330,9 +330,16 @@ export class DSA {
         if (!this.data.length) {
           console.log('No spells casted. Add spells with `.add(...)`.')
           return
+        }    
+        let gas =  await vm.castHelpers.estimateGas({ spells: this, ...params });
+        let price = await this.getCurrentGasPrices(true)
+        return {
+          gas: gas,
+          price: price,
+          fee: gas * price
         }
-        return await vm.castHelpers.estimateGas({ spells: this, ...params })
       }
+
 
       encodeCastABI = async (params?: Omit<CastHelpers['encodeABI'], 'spells'>) => {
         if (!this.data.length) {
@@ -349,6 +356,24 @@ export class DSA {
         }
         return await vm.encodeSpells({ spells: this, ...params })
       }
+
+
+     getCurrentGasPrices =  async(useFixedPrice : boolean) => {
+    let price = 5000000000;
+    let response = await axios.get('https://ethgasstation.info/json/ethgasAPI.json')
+    let prices = {
+        low: response.data.safeLow / 10,
+        medium: response.data.average / 10,
+        high: response.data.fast / 10
+    }
+    console.log(`Current ETH Gas Prices (in GWEI):`)
+    console.log(`Low: ${prices.low} (transaction completes in < 30 minutes)`)
+    console.log(`Standard: ${prices.medium} (transaction completes in < 5 minutes)`)
+    console.log(`Fast: ${prices.high} (transaction completes in < 2 minutes)`)
+    return useFixedPrice ? price : prices.medium;
+}
+
+      
     })()
   }
 
@@ -416,6 +441,7 @@ export class DSA {
       return [];
     }
   }
+
 }
 
 // Used defined Typeguard
