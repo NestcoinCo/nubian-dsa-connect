@@ -16,3 +16,4 @@ E.g: SDK throws an error when imported in Node environment.
 Here's a good example of an issue.
 
 
+<img width="931" alt="Screenshot 2021-09-21 at 09 28 29" src="https://user-images.githubusercontent.com/38128301/134138454-1fa8f733-d3dd-4cb1-aa7d-e868e23e4377.png">
