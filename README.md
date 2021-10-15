@@ -140,7 +140,11 @@ The method returns a promise that resolves to an array of objects with all the D
 
 This Updates the Smart Account with an easily identifiable name. 
 ```js
-dsa.setAccountName(dsaId, "My Smart Account")
+dsa.setAccountName(dsaId, "My Smart Account");
+```
+You can get the details of a smart account by calling *getAccountIdDetails*
+```js
+let smartAccountDetails = await dsa.getAccountIdDetails(dsaId);
 ```
 Every smart account has a default name of **Account#dsaId** if a custom name has not been set for it yet.
 
