@@ -31,11 +31,13 @@ export class Accounts {
       accounts: string[]
       versions: number[]
     } = await contract.methods.getAuthorityDetails(authority).call({ from: Addresses.genesis })
-
+    let accountNames = {};
+    
     const accounts = authorityDetails.IDs.map((id, index) => ({
       id,
       address: authorityDetails.accounts[index],
       version: authorityDetails.versions[index],
+      
     }))
     console.log(accounts, 'here')
 

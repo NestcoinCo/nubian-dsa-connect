@@ -1,6 +1,6 @@
 {
   "name": "nubian-dsa-connect",
-  "version": "0.4.1",
+  "version": "0.4.8",
   "description": "Nubian DSA connect",
   "main": "dist/index.bundle.js",
   "module": "dist/index.es.js",

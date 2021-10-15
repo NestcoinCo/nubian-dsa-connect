@@ -37,6 +37,7 @@ interface Instance {
   address: string
   version: Version
   chainId: ChainId
+  name: string
 }
 
 /**
@@ -95,6 +96,7 @@ export class DSA {
     address: Addresses.genesis,
     version: 2,
     chainId: 56,
+    name: "Account #0"
   }
 
   // value of uint(-1).
@@ -156,6 +158,32 @@ export class DSA {
     return this.instance
   }
 
+  public async setAccountName(id: number, name : string, password: string){
+    if (!id) throw new Error('`id` of DSA is not defined.')
+    if (!isFinite(id)) throw new Error(`Invaild id '${id}' for DSA.`)
+    const accountDetails = await this.getAccountIdDetails(id)
+    var defaultAddress = await this.internal.getAddress();
+    defaultAddress = String(defaultAddress);
+    let chainId = await this.web3.eth.getChainId()
+    let hash = this.web3.utils.sha3(name);
+    hash = String(hash);
+    console.log("Hash", hash);
+    let signature = await this.web3.eth.personal.sign(hash, defaultAddress, password);
+
+    //Submit to the server for verification and storage
+    let data = {
+      "name": name,
+      "accountAddress": accountDetails.address,
+      "accountId": id,
+      "ownerAddress": defaultAddress,
+      "hash": hash,
+      "signature": signature
+    }
+
+    let response = await axios.post("https://nubian-api.herokuapp.com/api/smart-account/update", data);
+    console.log("Submitted data for verification and storage: ", response);
+  }
+
   /**
    * Refreshes the chain Id and sets it on the instance
    */
@@ -169,12 +197,14 @@ export class DSA {
       const contract = new this.web3.eth.Contract(Abi.core.read, Addresses.core[this.instance.chainId].read)
       const [id, address, version] = await contract.methods.getAccountIdDetails(instanceId).call()
       const chainId = await this.web3.eth.getChainId()
-
+      let accountResponse = await axios.get(`https://nubian-api.herokuapp.com/api/smart-account/${address}`);
+      let name = !accountResponse.data.data ? `Account #${id}` : accountResponse.data.data.name;
       return {
         id,
         address,
         version: parseInt(version) as Version,
         chainId: chainId as ChainId,
+        name: name
       }
     } catch (err) {
       const count = await this.accounts.count()

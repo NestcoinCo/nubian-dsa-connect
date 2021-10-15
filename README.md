@@ -59,6 +59,7 @@ Every user needs to create Smart Account to interact with DeFi Protocols seamles
 - Create Smart Account - `build()`
 - Fetch Smart Accounts - `getAccounts()`
 - Set Smart Account - `setInstance()`
+- Set Account Name - `setAccountName()`
 
 ### build()
 
@@ -124,6 +125,16 @@ The method returns an array of objects with all the DSA accounts where `address`
   ...
 ]
 ```
+
+
+### setAccountName()
+
+This Updates the Smart Account with an easily identifiable name. 
+```js
+dsa.setAccountName(dsaId, "My Smart Account")
+```
+Every smart account has a default name of **Account#dsaId** if a custom name has not been set for it yet.
+
 
 ### setInstance()
 
