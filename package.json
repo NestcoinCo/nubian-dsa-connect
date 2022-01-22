@@ -67,7 +67,7 @@
     "inquirer": "^8.0.0",
     "jest": "^26.5.2",
     "light-server": "^2.8.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.1.1",
     "prettier": "^2.0.5",
     "prettier-webpack-plugin": "^1.2.0",
     "rollup": "^2.28.2",
